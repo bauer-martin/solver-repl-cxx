@@ -1,0 +1,9 @@
+target_sources(spl_conqueror_solvers_core
+  PRIVATE
+    ${CMAKE_SOURCE_DIR}/include/spl_conqueror/BinaryOption.h BinaryOption.cpp
+    ${CMAKE_SOURCE_DIR}/include/spl_conqueror/BucketSession.h BucketSession.cpp
+    ${CMAKE_SOURCE_DIR}/include/spl_conqueror/SatChecker.h SatChecker.cpp
+    ${CMAKE_SOURCE_DIR}/include/spl_conqueror/SolverFactory.h SolverFactory.cpp
+    ${CMAKE_SOURCE_DIR}/include/spl_conqueror/VariabilityModel.h VariabilityModel.cpp
+    ${CMAKE_SOURCE_DIR}/include/spl_conqueror/VariantGenerator.h VariantGenerator.cpp
+)
