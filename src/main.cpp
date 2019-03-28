@@ -13,6 +13,9 @@
 #include "commands/GenerateUpToNConfigs.h"
 #include "commands/LoadVm.h"
 #include "commands/SelectSolver.h"
+#ifdef USE_OPTIMATHSAT
+#include "opti_math_sat/OptiMathSatSolverFactory.h"
+#endif
 #include "spl_conqueror/BinaryOption.h"
 #include "utilities/Shell.h"
 #include "utilities/GlobalContext.h"
@@ -22,6 +25,13 @@ static int run_shell(std::istream &input) {
   utilities::GlobalContext context;
   shell.register_command("load-vm", new commands::LoadVm(context));
   auto *select_solver_command = new commands::SelectSolver(context);
+#ifdef USE_OPTIMATHSAT
+  select_solver_command->register_solver(
+      "opti-math-sat",
+      [](const spl_conqueror::VariabilityModel &vm) -> spl_conqueror::SolverFactory * {
+        return new opti_math_sat::OptiMathSatSolverFactory(vm);
+      });
+#endif
   shell.register_command("select-solver", select_solver_command);
   shell.register_command("check-sat", new commands::CheckSat(context));
   shell.register_command("find-minimized-config", new commands::FindMinimizedConfig(context));
