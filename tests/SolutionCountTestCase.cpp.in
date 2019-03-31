@@ -1,0 +1,5 @@
+#include "@CMAKE_CURRENT_SOURCE_DIR@/@SOLVER@/SolutionCountTestCase.cpp"
+
+int main(int argc, char *argv[]) {
+  return test_case("@CASE_STUDY@.xml", @EXPECTED_SOLUTION_COUNT@);
+}
