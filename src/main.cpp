@@ -16,6 +16,9 @@
 #ifdef USE_OPTIMATHSAT
 #include "opti_math_sat/OptiMathSatSolverFactory.h"
 #endif
+#ifdef USE_OR_TOOLS
+#include "or_tools/OrToolsSolverFactory.h"
+#endif
 #include "spl_conqueror/BinaryOption.h"
 #include "utilities/Shell.h"
 #include "utilities/GlobalContext.h"
@@ -30,6 +33,13 @@ static int run_shell(std::istream &input) {
       "opti-math-sat",
       [](const spl_conqueror::VariabilityModel &vm) -> spl_conqueror::SolverFactory * {
         return new opti_math_sat::OptiMathSatSolverFactory(vm);
+      });
+#endif
+#ifdef USE_OR_TOOLS
+  select_solver_command->register_solver(
+      "or-tools",
+      [](const spl_conqueror::VariabilityModel &vm) -> spl_conqueror::SolverFactory * {
+        return new or_tools::OrToolsSolverFactory(vm);
       });
 #endif
   shell.register_command("select-solver", select_solver_command);

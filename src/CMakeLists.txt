@@ -10,6 +10,12 @@ if(WITH_OPTIMATHSAT)
     add_subdirectory(opti_math_sat)
 endif(WITH_OPTIMATHSAT)
 
+if(WITH_OR_TOOLS)
+    message(STATUS "Adding OR-Tools")
+    add_definitions(-DUSE_OR_TOOLS)
+    add_subdirectory(or_tools)
+endif(WITH_OR_TOOLS)
+
 find_package(Boost 1.68 REQUIRED)
 
 target_include_directories(spl_conqueror_solvers_core
