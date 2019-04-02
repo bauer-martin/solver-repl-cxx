@@ -6,8 +6,12 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules")
 
 option(WITH_OPTIMATHSAT "Add OptiMathSat to the list of available solvers" ON)
 option(WITH_OR_TOOLS "Add Google OR-Tools to the list of available solvers" ON)
+option(WITH_TESTS "Configure tests" OFF)
 
 add_subdirectory(src)
 
-enable_testing()
-add_subdirectory(tests)
+if (WITH_TESTS)
+  message(STATUS "Configuring tests")
+  enable_testing()
+  add_subdirectory(tests)
+endif (WITH_TESTS)
