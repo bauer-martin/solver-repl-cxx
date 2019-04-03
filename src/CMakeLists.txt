@@ -16,7 +16,7 @@ if(WITH_OR_TOOLS)
     add_subdirectory(or_tools)
 endif(WITH_OR_TOOLS)
 
-find_package(Boost 1.68 REQUIRED)
+find_package(Boost 1.57 REQUIRED)
 
 target_include_directories(spl_conqueror_solvers_core
   PUBLIC
