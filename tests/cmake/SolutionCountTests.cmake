@@ -41,7 +41,7 @@ foreach (SOLVER ${SOLVERS})
 
     set(EXECUTABLE_NAME "")
     string(TOLOWER ${CASE_STUDY} EXECUTABLE_NAME)
-    add_executable(test_${SOLVER}_solution_count_${EXECUTABLE_NAME} ${SOLVER}_SolutionCountTestCase_${EXECUTABLE_NAME}.cpp)
+    add_executable(test_${SOLVER}_solution_count_${EXECUTABLE_NAME} ${SOLVER}_SolutionCountTestCase_${CASE_STUDY}.cpp)
     target_link_libraries(test_${SOLVER}_solution_count_${EXECUTABLE_NAME} PRIVATE spl_conqueror_solvers_core)
     add_test(${SOLVER}_solution_count_${EXECUTABLE_NAME} test_${SOLVER}_solution_count_${EXECUTABLE_NAME})
   endforeach ()
