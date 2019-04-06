@@ -12,7 +12,7 @@ target_sources(spl_conqueror_solvers_core
 find_package(ORTools REQUIRED)
 target_include_directories(spl_conqueror_solvers_core
   PUBLIC
-    ${ORTools_INCLUDE_DIR}
+    ${ORTools_INCLUDE_DIRS}
 )
 target_link_libraries(spl_conqueror_solvers_core
   PRIVATE
