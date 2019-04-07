@@ -1,6 +1,7 @@
 #ifndef GLOBAL_CONTEXT_H
 #define GLOBAL_CONTEXT_H
 
+#include "option_coding/OptionCoding.h"
 #include "spl_conqueror/BucketSession.h"
 #include "spl_conqueror/SatChecker.h"
 #include "spl_conqueror/SolverFactory.h"
@@ -11,6 +12,7 @@ namespace utilities {
 
 class GlobalContext final {
  private:
+  option_coding::OptionCoding *_option_coding;
   spl_conqueror::VariabilityModel *_variability_model;
   spl_conqueror::SolverFactory *_solver_factory;
   spl_conqueror::SatChecker *_sat_checker;
@@ -20,6 +22,8 @@ class GlobalContext final {
  public:
   GlobalContext();
   ~GlobalContext();
+  option_coding::OptionCoding &get_option_coding() const;
+  void set_option_coding(option_coding::OptionCoding *option_coding);
   spl_conqueror::VariabilityModel &get_variability_model() const;
   void set_variability_model(spl_conqueror::VariabilityModel *variability_model);
   spl_conqueror::SolverFactory &get_solver_factory() const;

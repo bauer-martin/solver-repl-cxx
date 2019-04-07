@@ -5,10 +5,10 @@
 #include <stdexcept>
 #include <vector>
 
+#include "option_coding/OptionCoding.h"
 #include "spl_conqueror/BinaryOption.h"
 #include "spl_conqueror/VariabilityModel.h"
 #include "spl_conqueror/VariantGenerator.h"
-#include "utilities/ParsingUtils.h"
 
 namespace commands {
 
@@ -17,14 +17,14 @@ GenerateConfigFromBucket::GenerateConfigFromBucket(utilities::GlobalContext &glo
 }
 
 static std::list<std::pair<int, std::vector<spl_conqueror::BinaryOption *>>> decode_feature_weight_map(
-    const std::string &str, const spl_conqueror::VariabilityModel &vm) {
+    const std::string &str, const option_coding::OptionCoding &coding) {
   std::list<std::pair<int, std::vector<spl_conqueror::BinaryOption *>>> pairs;
   std::stringstream ss(str);
   std::string config_string;
   std::string weight_string;
   while (!ss.eof()) {
     getline(ss, config_string, '=');
-    std::vector<spl_conqueror::BinaryOption *> config = utilities::decoded_binary_options(config_string, vm);
+    std::vector<spl_conqueror::BinaryOption *> config = coding.decode_binary_options(config_string);
     getline(ss, weight_string, ';');
     int weight = std::stoi(weight_string);
     pairs.emplace_back(weight, config);
@@ -45,12 +45,12 @@ std::string commands::GenerateConfigFromBucket::execute(const std::string &args_
   } catch (std::invalid_argument &ex) {
     return error("invalid number '" + count_string + "'");
   }
-  spl_conqueror::VariabilityModel &vm = _global_context.get_variability_model();
+  const option_coding::OptionCoding &coding = _global_context.get_option_coding();
   std::list<std::pair<int, std::vector<spl_conqueror::BinaryOption *>>> feature_weight;
   if (!ss.eof()) {
     std::string map_string;
     getline(ss, map_string, ' ');
-    feature_weight = decode_feature_weight_map(map_string, vm);
+    feature_weight = decode_feature_weight_map(map_string, coding);
   }
   spl_conqueror::BucketSession *bucket_session = _global_context.get_bucket_session();
   if (!bucket_session) {
@@ -68,7 +68,7 @@ std::string commands::GenerateConfigFromBucket::execute(const std::string &args_
       = bucket_session->generate_config(selected_options_count, feature_ranking);
   std::string response;
   if (config) {
-    response = utilities::encoded_binary_options(*config);
+    response = coding.encode_binary_options(*config);
     delete config;
   } else {
     response = "none";

@@ -3,10 +3,10 @@
 #include <sstream>
 #include <vector>
 
+#include "option_coding/OptionCoding.h"
 #include "spl_conqueror/BinaryOption.h"
 #include "spl_conqueror/SatChecker.h"
 #include "spl_conqueror/VariabilityModel.h"
-#include "utilities/ParsingUtils.h"
 
 namespace commands {
 
@@ -27,7 +27,8 @@ std::string commands::CheckSat::execute(const std::string &args_string) {
   std::string config_string;
   getline(ss, config_string, ' ');
   spl_conqueror::VariabilityModel &vm = _global_context.get_variability_model();
-  std::vector<spl_conqueror::BinaryOption *> config = utilities::decoded_binary_options(config_string, vm);
+  const option_coding::OptionCoding &coding = _global_context.get_option_coding();
+  std::vector<spl_conqueror::BinaryOption *> config = coding.decode_binary_options(config_string);
   spl_conqueror::SatChecker &sat_checker = _global_context.get_sat_checker();
   bool valid = sat_checker.is_valid(config, is_partial_configuration);
   return valid ? "true" : "false";

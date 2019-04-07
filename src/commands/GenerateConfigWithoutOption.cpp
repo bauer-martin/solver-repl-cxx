@@ -3,10 +3,10 @@
 #include <sstream>
 #include <vector>
 
+#include "option_coding/OptionCoding.h"
 #include "spl_conqueror/BinaryOption.h"
 #include "spl_conqueror/VariabilityModel.h"
 #include "spl_conqueror/VariantGenerator.h"
-#include "utilities/ParsingUtils.h"
 
 namespace commands {
 
@@ -21,13 +21,14 @@ std::string commands::GenerateConfigWithoutOption::execute(const std::string &ar
   std::stringstream ss(args_string);
   std::string config_string;
   getline(ss, config_string, ' ');
-  spl_conqueror::VariabilityModel &vm = _global_context.get_variability_model();
-  std::vector<spl_conqueror::BinaryOption *> config = utilities::decoded_binary_options(config_string, vm);
+  const option_coding::OptionCoding &coding = _global_context.get_option_coding();
+  std::vector<spl_conqueror::BinaryOption *> config = coding.decode_binary_options(config_string);
   if (ss.eof()) {
     return error("no option specified");
   }
   std::string option_name;
   getline(ss, option_name);
+  spl_conqueror::VariabilityModel &vm = _global_context.get_variability_model();
   spl_conqueror::BinaryOption *option_to_remove = vm.get_binary_option(option_name);
 
   spl_conqueror::VariantGenerator &vg = _global_context.get_variant_generator();
@@ -37,9 +38,9 @@ std::string commands::GenerateConfigWithoutOption::execute(const std::string &ar
                                                                                              removed_options);
   std::string response;
   if (new_config) {
-    response = utilities::encoded_binary_options(*new_config)
+    response = coding.encode_binary_options(*new_config)
         + " "
-        + utilities::encoded_binary_options(removed_options);
+        + coding.encode_binary_options(removed_options);
     delete new_config;
   } else {
     response = "none";

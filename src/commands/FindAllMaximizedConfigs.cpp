@@ -3,10 +3,10 @@
 #include <sstream>
 #include <vector>
 
+#include "option_coding/OptionCoding.h"
 #include "spl_conqueror/BinaryOption.h"
 #include "spl_conqueror/VariabilityModel.h"
 #include "spl_conqueror/VariantGenerator.h"
-#include "utilities/ParsingUtils.h"
 
 namespace commands {
 
@@ -16,23 +16,24 @@ FindAllMaximizedConfigs::FindAllMaximizedConfigs(utilities::GlobalContext &globa
 
 std::string commands::FindAllMaximizedConfigs::execute(const std::string &args_string) {
   spl_conqueror::VariabilityModel &vm = _global_context.get_variability_model();
+  const option_coding::OptionCoding &coding = _global_context.get_option_coding();
   std::stringstream ss(args_string);
   std::vector<spl_conqueror::BinaryOption *> config;
   if (!ss.eof()) {
     std::string config_string;
     getline(ss, config_string, ' ');
-    config = utilities::decoded_binary_options(config_string, vm);
+    config = coding.decode_binary_options(config_string);
   }
   std::vector<spl_conqueror::BinaryOption *> unwanted_options;
   if (!ss.eof()) {
     std::string options_string;
     getline(ss, options_string, ' ');
-    unwanted_options = utilities::decoded_binary_options(options_string, vm);
+    unwanted_options = coding.decode_binary_options(options_string);
   }
   spl_conqueror::VariantGenerator &vg = _global_context.get_variant_generator();
   std::vector<std::vector<spl_conqueror::BinaryOption *>> optimal_configs
       = vg.find_all_maximized_configs(config, unwanted_options);
-  return utilities::encoded_binary_options_vector(optimal_configs);
+  return coding.encode_binary_options_vector(optimal_configs);
 }
 
 }

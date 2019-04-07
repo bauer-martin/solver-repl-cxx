@@ -1,6 +1,7 @@
 add_library(spl_conqueror_solvers_core STATIC "")
 
 add_subdirectory(commands)
+add_subdirectory(option_coding)
 add_subdirectory(spl_conqueror)
 add_subdirectory(utilities)
 

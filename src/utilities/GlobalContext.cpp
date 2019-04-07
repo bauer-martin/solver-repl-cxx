@@ -4,7 +4,8 @@
 
 namespace utilities {
 
-GlobalContext::GlobalContext() : _variability_model(nullptr),
+GlobalContext::GlobalContext() : _option_coding(nullptr),
+                                 _variability_model(nullptr),
                                  _solver_factory(nullptr),
                                  _sat_checker(nullptr),
                                  _variant_generator(nullptr),
@@ -12,11 +13,25 @@ GlobalContext::GlobalContext() : _variability_model(nullptr),
 }
 
 GlobalContext::~GlobalContext() {
+  delete _option_coding;
   delete _variability_model;
   delete _solver_factory;
   delete _sat_checker;
   delete _variant_generator;
   delete _bucket_session;
+}
+
+option_coding::OptionCoding &GlobalContext::get_option_coding() const {
+  if (_option_coding) {
+    return *_option_coding;
+  } else {
+    throw std::runtime_error("no coding strategy has been set");
+  }
+}
+
+void GlobalContext::set_option_coding(option_coding::OptionCoding *option_coding) {
+  delete _option_coding;
+  _option_coding = option_coding;
 }
 
 spl_conqueror::VariabilityModel &GlobalContext::get_variability_model() const {

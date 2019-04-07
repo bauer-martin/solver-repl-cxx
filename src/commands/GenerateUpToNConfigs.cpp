@@ -3,9 +3,9 @@
 #include <stdexcept>
 #include <vector>
 
+#include "option_coding/OptionCoding.h"
 #include "spl_conqueror/BinaryOption.h"
 #include "spl_conqueror/VariantGenerator.h"
-#include "utilities/ParsingUtils.h"
 
 namespace commands {
 
@@ -21,7 +21,8 @@ std::string GenerateUpToNConfigs::execute(const std::string &args_string) {
   }
   spl_conqueror::VariantGenerator &vg = _global_context.get_variant_generator();
   std::vector<std::vector<spl_conqueror::BinaryOption *>> configs = vg.generate_up_to_n_configs(count);
-  return utilities::encoded_binary_options_vector(configs);
+  const option_coding::OptionCoding &coding = _global_context.get_option_coding();
+  return coding.encode_binary_options_vector(configs);
 }
 
 }
