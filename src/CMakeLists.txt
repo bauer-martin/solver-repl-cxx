@@ -4,17 +4,17 @@ add_subdirectory(commands)
 add_subdirectory(spl_conqueror)
 add_subdirectory(utilities)
 
-if (WITH_OPTIMATHSAT)
+if (DEFINED OPTIMATHSAT_ROOT)
   message(STATUS "Adding OptiMathSat")
   add_definitions(-DUSE_OPTIMATHSAT)
   add_subdirectory(opti_math_sat)
-endif (WITH_OPTIMATHSAT)
+endif ()
 
-if (WITH_OR_TOOLS)
+if (DEFINED OR_TOOLS_ROOT)
   message(STATUS "Adding OR-Tools")
   add_definitions(-DUSE_OR_TOOLS)
   add_subdirectory(or_tools)
-endif (WITH_OR_TOOLS)
+endif ()
 
 find_package(Boost 1.57 REQUIRED)
 

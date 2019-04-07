@@ -1,11 +1,11 @@
 set(SOLVERS "")
 
-if (WITH_OPTIMATHSAT)
+if (DEFINED OPTIMATHSAT_ROOT)
   list(APPEND SOLVERS opti_math_sat)
-endif (WITH_OPTIMATHSAT)
+endif ()
 
-if (WITH_OR_TOOLS)
+if (DEFINED OR_TOOLS_ROOT)
   list(APPEND SOLVERS or_tools)
-endif (WITH_OR_TOOLS)
+endif ()
 
 include(SolutionCountTests)
