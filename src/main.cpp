@@ -15,6 +15,7 @@
 #include "commands/SelectOptionCoding.h"
 #include "commands/SelectSolver.h"
 #include "option_coding/OptionNameOptionCoding.h"
+#include "option_coding/VariabilityModelIndexOptionCoding.h"
 #ifdef USE_OPTIMATHSAT
 #include "opti_math_sat/OptiMathSatSolverFactory.h"
 #endif
@@ -50,6 +51,11 @@ static int run_shell(std::istream &input) {
       "option-name",
       [](const spl_conqueror::VariabilityModel &vm) -> option_coding::OptionCoding * {
         return new option_coding::OptionNameOptionCoding(vm);
+      });
+  select_option_coding_command->register_option_coding(
+      "variability-model-index",
+      [](const spl_conqueror::VariabilityModel &vm) -> option_coding::OptionCoding * {
+        return new option_coding::VariabilityModelIndexOptionCoding(vm);
       });
   shell.register_command("select-option-coding", select_option_coding_command);
   shell.register_command("check-sat", new commands::CheckSat(context));
