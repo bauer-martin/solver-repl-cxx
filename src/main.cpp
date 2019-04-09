@@ -33,14 +33,14 @@ static int run_shell(std::istream &input) {
   auto *select_solver_command = new commands::SelectSolver(context);
 #ifdef USE_OPTIMATHSAT
   select_solver_command->register_solver(
-      "opti-math-sat",
+      "optimathsat",
       [](const spl_conqueror::VariabilityModel &vm) -> spl_conqueror::SolverFactory * {
         return new opti_math_sat::OptiMathSatSolverFactory(vm);
       });
 #endif
 #ifdef USE_OR_TOOLS
   select_solver_command->register_solver(
-      "or-tools",
+      "ortools",
       [](const spl_conqueror::VariabilityModel &vm) -> spl_conqueror::SolverFactory * {
         return new or_tools::OrToolsSolverFactory(vm);
       });
