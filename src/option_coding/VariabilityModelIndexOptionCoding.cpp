@@ -3,7 +3,14 @@
 namespace option_coding {
 
 static bool compare_binary_options(spl_conqueror::BinaryOption *option_1, spl_conqueror::BinaryOption *option_2) {
-  return (option_1->get_name() < option_2->get_name());
+  const std::string &str_1 = option_1->get_name();
+  const std::string &str_2 = option_2->get_name();
+  auto result = mismatch(str_1.cbegin(), str_1.cend(), str_2.cbegin(),
+                         [](const unsigned char lhs, const unsigned char rhs) {
+                           return tolower(lhs) == tolower(rhs);
+                         });
+  return result.second != str_2.cend()
+      && (result.first == str_1.cend() || tolower(*result.first) < tolower(*result.second));
 }
 
 VariabilityModelIndexOptionCoding::VariabilityModelIndexOptionCoding(const spl_conqueror::VariabilityModel &vm)
