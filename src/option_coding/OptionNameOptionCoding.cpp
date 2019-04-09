@@ -21,7 +21,7 @@ std::vector<spl_conqueror::BinaryOption *> OptionNameOptionCoding::decode_binary
 
 std::string OptionNameOptionCoding::encode_binary_options(const std::vector<spl_conqueror::BinaryOption *> &options) const {
   std::stringstream ss;
-  for (auto it = options.begin(); it < options.end(); ++it) {
+  for (auto it = options.cbegin(); it < options.cend(); ++it) {
     spl_conqueror::BinaryOption *option = *it;
     ss << option->get_name();
     if (it < options.end() - 1) {
@@ -36,7 +36,7 @@ std::string OptionNameOptionCoding::encode_binary_options_vector(const std::vect
     return "none";
   }
   std::stringstream ss;
-  for (auto it = configs.begin(); it < configs.end(); ++it) {
+  for (auto it = configs.cbegin(); it < configs.cend(); ++it) {
     std::vector<spl_conqueror::BinaryOption *> options = *it;
     ss << encode_binary_options(options);
     if (it < configs.end() - 1) {

@@ -28,10 +28,10 @@ bool file_exists(const std::string &filename) {
 }
 
 bool contains(const std::vector<spl_conqueror::BinaryOption *> &vector, const spl_conqueror::BinaryOption &option) {
-  return std::find_if(vector.begin(), vector.end(),
+  return std::find_if(vector.cbegin(), vector.cend(),
                       [&option](spl_conqueror::BinaryOption *o) -> bool {
                         return o->get_name() == option.get_name();
-                      }) != vector.end();
+                      }) != vector.cend();
 }
 
 }
