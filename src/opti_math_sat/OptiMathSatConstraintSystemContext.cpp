@@ -31,7 +31,9 @@ OptiMathSatConstraintSystemContext *OptiMathSatConstraintSystemContext::make_fro
   msat_config config = msat_create_config();
   msat_set_option(config, "model_generation", "true");
   msat_set_option(config, "random_seed", std::to_string(seed).c_str());
+  assert(!MSAT_ERROR_CONFIG(config));
   msat_env environment = msat_create_opt_env(config);
+  assert(!MSAT_ERROR_ENV(environment));
   std::vector<msat_term> variables(vm.get_binary_options().size());
   msat_term feature_model = msat_make_true(environment);
   return new OptiMathSatConstraintSystemContext(vm, config, environment, variables, feature_model);

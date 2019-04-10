@@ -13,7 +13,7 @@ OrToolsSolutionCollector::OrToolsSolutionCollector(const OrToolsConstraintSystem
       _model(new operations_research::sat::Model()),
       _solution_limit_reached(false) {
   operations_research::sat::SatParameters parameters;
-  parameters.set_enumerate_all_solutions(true);
+  parameters.set_enumerate_all_solutions(limit == -1 || limit > 1);
   parameters.set_random_seed(seed);
   _model->Add(NewSatParameters(parameters));
 
