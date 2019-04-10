@@ -10,6 +10,7 @@ class OptiMathSatConstraintSystemContext;
 
 class OptiMathSatSolverFacade final : public spl_conqueror::SolverFacade {
  private:
+  const spl_conqueror::VariabilityModel &_vm;
   OptiMathSatConstraintSystemContext *_context;
   spl_conqueror::SatChecker *_sat_checker;
   spl_conqueror::VariantGenerator *_variant_generator;
@@ -17,6 +18,7 @@ class OptiMathSatSolverFacade final : public spl_conqueror::SolverFacade {
  public:
   explicit OptiMathSatSolverFacade(const spl_conqueror::VariabilityModel &vm);
   ~OptiMathSatSolverFacade() override;
+  void set_parameters(const std::map<std::string, std::string> &parameters) override;
   spl_conqueror::SatChecker &get_sat_checker() override;
   spl_conqueror::VariantGenerator &get_variant_generator() override;
 

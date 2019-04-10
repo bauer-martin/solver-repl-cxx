@@ -14,6 +14,9 @@ OrToolsSolverFacade::~OrToolsSolverFacade() {
   delete _variant_generator;
 }
 
+void OrToolsSolverFacade::set_parameters(const std::map<std::string, std::string> &parameters) {
+}
+
 spl_conqueror::SatChecker &OrToolsSolverFacade::get_sat_checker() {
   if (!_sat_checker) {
     _sat_checker = new OrToolsSatChecker(_vm);

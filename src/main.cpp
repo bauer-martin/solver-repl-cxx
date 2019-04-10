@@ -14,6 +14,7 @@
 #include "commands/LoadVm.h"
 #include "commands/SelectOptionCoding.h"
 #include "commands/SelectSolver.h"
+#include "commands/SetSolverParameters.h"
 #include "option_coding/OptionNameOptionCoding.h"
 #include "option_coding/VariabilityModelIndexOptionCoding.h"
 #ifdef USE_OPTIMATHSAT
@@ -57,6 +58,7 @@ static int run_shell(std::istream &input) {
       [](const spl_conqueror::VariabilityModel &vm) -> option_coding::OptionCoding * {
         return new option_coding::VariabilityModelIndexOptionCoding(vm);
       });
+  shell.register_command("set-solver-parameters", new commands::SetSolverParameters(context));
   shell.register_command("select-option-coding", select_option_coding_command);
   shell.register_command("check-sat", new commands::CheckSat(context));
   shell.register_command("find-minimized-config", new commands::FindMinimizedConfig(context));

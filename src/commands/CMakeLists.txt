@@ -11,4 +11,5 @@ target_sources(spl_conqueror_solvers_core
     ${CMAKE_SOURCE_DIR}/include/commands/LoadVm.h LoadVm.cpp
     ${CMAKE_SOURCE_DIR}/include/commands/SelectOptionCoding.h SelectOptionCoding.cpp
     ${CMAKE_SOURCE_DIR}/include/commands/SelectSolver.h SelectSolver.cpp
+    ${CMAKE_SOURCE_DIR}/include/commands/SetSolverParameters.h SetSolverParameters.cpp
 )

@@ -15,6 +15,7 @@ class OrToolsSolverFacade final : public spl_conqueror::SolverFacade {
  public:
   explicit OrToolsSolverFacade(const spl_conqueror::VariabilityModel &vm);
   ~OrToolsSolverFacade() override;
+  void set_parameters(const std::map<std::string, std::string> &parameters) override;
   spl_conqueror::SatChecker &get_sat_checker() override;
   spl_conqueror::VariantGenerator &get_variant_generator() override;
 

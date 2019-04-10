@@ -1,6 +1,8 @@
 #ifndef SOLVER_FACADE_H
 #define SOLVER_FACADE_H
 
+#include <map>
+
 #include "spl_conqueror/SatChecker.h"
 #include "spl_conqueror/VariantGenerator.h"
 
@@ -12,6 +14,7 @@ class SolverFacade {
 
  public:
   virtual ~SolverFacade();
+  virtual void set_parameters(const std::map<std::string, std::string> &parameters) = 0;
   virtual SatChecker &get_sat_checker() = 0;
   virtual VariantGenerator &get_variant_generator() = 0;
 
