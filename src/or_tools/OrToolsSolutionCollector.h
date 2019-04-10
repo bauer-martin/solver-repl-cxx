@@ -20,8 +20,8 @@ class OrToolsSolutionCollector final {
   std::atomic<bool> _solution_limit_reached;
 
  public:
-  explicit OrToolsSolutionCollector(const OrToolsConstraintSystemContext &context);
-  OrToolsSolutionCollector(const OrToolsConstraintSystemContext &context, int limit);
+  OrToolsSolutionCollector(const OrToolsConstraintSystemContext &context, uint seed);
+  OrToolsSolutionCollector(const OrToolsConstraintSystemContext &context, uint seed, int limit);
   ~OrToolsSolutionCollector();
   operations_research::sat::Model *get_model() const;
   const std::vector<std::vector<spl_conqueror::BinaryOption *>> &get_solutions() const;

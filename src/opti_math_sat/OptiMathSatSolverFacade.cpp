@@ -5,6 +5,7 @@
 #include "OptiMathSatConstraintSystemContext.h"
 #include "OptiMathSatSatChecker.h"
 #include "OptiMathSatVariantGenerator.h"
+#include "utilities/SolverParameterKeys.h"
 
 namespace opti_math_sat {
 
@@ -12,7 +13,8 @@ OptiMathSatSolverFacade::OptiMathSatSolverFacade(const spl_conqueror::Variabilit
     : _vm(vm),
       _context(nullptr),
       _sat_checker(nullptr),
-      _variant_generator(nullptr) {
+      _variant_generator(nullptr),
+      _seed(1) {
 }
 
 OptiMathSatSolverFacade::~OptiMathSatSolverFacade() {
@@ -24,6 +26,10 @@ OptiMathSatSolverFacade::~OptiMathSatSolverFacade() {
 void OptiMathSatSolverFacade::set_parameters(const std::map<std::string, std::string> &parameters) {
   if (_context) {
     throw std::runtime_error("OptiMathSat can not change parameters at runtime");
+  }
+  auto search = parameters.find(utilities::SolverParameterKeys::random_seed);
+  if (search != parameters.end()) {
+    _seed = std::stoi(parameters.at(utilities::SolverParameterKeys::random_seed));
   }
 }
 

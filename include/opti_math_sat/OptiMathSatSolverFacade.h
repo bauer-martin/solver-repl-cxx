@@ -14,6 +14,7 @@ class OptiMathSatSolverFacade final : public spl_conqueror::SolverFacade {
   OptiMathSatConstraintSystemContext *_context;
   spl_conqueror::SatChecker *_sat_checker;
   spl_conqueror::VariantGenerator *_variant_generator;
+  uint _seed;
 
  public:
   explicit OptiMathSatSolverFacade(const spl_conqueror::VariabilityModel &vm);

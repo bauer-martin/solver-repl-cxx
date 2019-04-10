@@ -35,7 +35,7 @@ class OptiMathSatConstraintSystemContext final {
   void process_binary_constraints();
 
  public:
-  static OptiMathSatConstraintSystemContext *make_from(const spl_conqueror::VariabilityModel &vm);
+  static OptiMathSatConstraintSystemContext *make_from(const spl_conqueror::VariabilityModel &vm, uint seed);
   ~OptiMathSatConstraintSystemContext();
   const msat_term &option_to_var(const spl_conqueror::BinaryOption &option) const;
   const msat_env &get_environment() const;

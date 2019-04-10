@@ -9,9 +9,11 @@ namespace or_tools {
 class OrToolsVariantGenerator final : public spl_conqueror::VariantGenerator {
  private:
   const spl_conqueror::VariabilityModel &_vm;
+  uint _seed;
 
  public:
   explicit OrToolsVariantGenerator(const spl_conqueror::VariabilityModel &vm);
+  void set_seed(uint seed);
   std::vector<spl_conqueror::BinaryOption *> *find_minimized_config(
       const std::vector<spl_conqueror::BinaryOption *> &config,
       const std::vector<spl_conqueror::BinaryOption *> &unwanted_options) override;

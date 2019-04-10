@@ -28,7 +28,11 @@ static void add_option_weighting(OrToolsConstraintSystemContext &context,
 }
 
 OrToolsVariantGenerator::OrToolsVariantGenerator(const spl_conqueror::VariabilityModel &vm)
-    : _vm(vm) {
+    : _vm(vm), _seed(1) {
+}
+
+void OrToolsVariantGenerator::set_seed(uint seed) {
+  _seed = seed;
 }
 
 std::vector<spl_conqueror::BinaryOption *> *OrToolsVariantGenerator::find_minimized_config(
@@ -76,7 +80,8 @@ std::vector<std::vector<spl_conqueror::BinaryOption *>> OrToolsVariantGenerator:
       },
       nullptr);
 
-  ort::CpSolverResponse response = ort::Solve(context->get_model());
+  OrToolsSolutionCollector collector_1(*context, _seed, 1);
+  ort::CpSolverResponse response = ort::SolveWithModel(context->get_model(), collector_1.get_model());
   std::vector<std::vector<spl_conqueror::BinaryOption *>> all_configs;
   operations_research::sat::CpSolverStatus status = response.status();
   if (status == ort::CpSolverStatus::OPTIMAL) {
@@ -92,11 +97,11 @@ std::vector<std::vector<spl_conqueror::BinaryOption *>> OrToolsVariantGenerator:
         },
         &minimal_cost);
 
-    OrToolsSolutionCollector collector(*context);
-    response = ort::SolveWithModel(context->get_model(), collector.get_model());
+    OrToolsSolutionCollector collector_2(*context, _seed);
+    response = ort::SolveWithModel(context->get_model(), collector_2.get_model());
     status = response.status();
     if (status == ort::CpSolverStatus::FEASIBLE) {
-      all_configs = collector.get_solutions();
+      all_configs = collector_2.get_solutions();
     } else {
       throw std::runtime_error("unknown status: " + std::to_string(status));
     }
@@ -112,7 +117,7 @@ std::vector<std::vector<spl_conqueror::BinaryOption *>> OrToolsVariantGenerator:
   OrToolsConstraintSystemContext *context = OrToolsConstraintSystemContext::make_from(_vm);
 
   std::vector<std::vector<spl_conqueror::BinaryOption *>> all_configs;
-  OrToolsSolutionCollector collector(*context, n);
+  OrToolsSolutionCollector collector(*context, _seed, n);
   const ort::CpSolverResponse &response = ort::SolveWithModel(context->get_model(), collector.get_model());
   operations_research::sat::CpSolverStatus status = response.status();
   switch (status) {
@@ -169,7 +174,7 @@ std::set<std::vector<spl_conqueror::BinaryOption *>> OrToolsVariantGenerator::ge
     const std::vector<spl_conqueror::BinaryOption *> &options_to_consider) {
   OrToolsConstraintSystemContext *context = OrToolsConstraintSystemContext::make_from(_vm);
 
-  OrToolsSolutionCollector collector(*context);
+  OrToolsSolutionCollector collector(*context, _seed);
   const ort::CpSolverResponse &response = ort::SolveWithModel(context->get_model(), collector.get_model());
   std::set<std::vector<spl_conqueror::BinaryOption *>> all_configs;
   operations_research::sat::CpSolverStatus status = response.status();

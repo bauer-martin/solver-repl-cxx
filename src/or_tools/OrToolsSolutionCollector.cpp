@@ -2,11 +2,11 @@
 
 namespace or_tools {
 
-OrToolsSolutionCollector::OrToolsSolutionCollector(const OrToolsConstraintSystemContext &context)
-    : OrToolsSolutionCollector(context, -1) {
+OrToolsSolutionCollector::OrToolsSolutionCollector(const OrToolsConstraintSystemContext &context, uint seed)
+    : OrToolsSolutionCollector(context, seed, -1) {
 }
 
-OrToolsSolutionCollector::OrToolsSolutionCollector(const OrToolsConstraintSystemContext &context, int limit)
+OrToolsSolutionCollector::OrToolsSolutionCollector(const OrToolsConstraintSystemContext &context, uint seed, int limit)
     : _context(context),
       _limit(limit),
       _solutions(),
@@ -14,6 +14,7 @@ OrToolsSolutionCollector::OrToolsSolutionCollector(const OrToolsConstraintSystem
       _solution_limit_reached(false) {
   operations_research::sat::SatParameters parameters;
   parameters.set_enumerate_all_solutions(true);
+  parameters.set_random_seed(seed);
   _model->Add(NewSatParameters(parameters));
 
   _model->GetOrCreate<operations_research::TimeLimit>()->RegisterExternalBooleanAsLimit(&_solution_limit_reached);
