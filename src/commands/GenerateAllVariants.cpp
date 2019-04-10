@@ -19,7 +19,7 @@ std::string commands::GenerateAllVariants::execute(const std::string &args_strin
   const option_coding::OptionCoding &coding = _global_context.get_option_coding();
   std::vector<spl_conqueror::BinaryOption *> options_to_consider = coding.decode_binary_options(args_string);
 
-  spl_conqueror::VariantGenerator &vg = _global_context.get_variant_generator();
+  spl_conqueror::VariantGenerator &vg = _global_context.get_solver_facade().get_variant_generator();
   std::set<std::vector<spl_conqueror::BinaryOption *>> all_variants = vg.generate_all_variants(options_to_consider);
   return coding.encode_binary_options_set(all_variants);
 }

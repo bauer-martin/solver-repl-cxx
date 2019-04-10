@@ -29,7 +29,7 @@ std::string commands::CheckSat::execute(const std::string &args_string) {
   spl_conqueror::VariabilityModel &vm = _global_context.get_variability_model();
   const option_coding::OptionCoding &coding = _global_context.get_option_coding();
   std::vector<spl_conqueror::BinaryOption *> config = coding.decode_binary_options(config_string);
-  spl_conqueror::SatChecker &sat_checker = _global_context.get_sat_checker();
+  spl_conqueror::SatChecker &sat_checker = _global_context.get_solver_facade().get_sat_checker();
   bool valid = sat_checker.is_valid(config, is_partial_configuration);
   return valid ? "true" : "false";
 }

@@ -29,7 +29,7 @@ std::string commands::FindMinimizedConfig::execute(const std::string &args_strin
     unwanted_options = coding.decode_binary_options(options_string);
   }
 
-  spl_conqueror::VariantGenerator &vg = _global_context.get_variant_generator();
+  spl_conqueror::VariantGenerator &vg = _global_context.get_solver_facade().get_variant_generator();
   std::vector<spl_conqueror::BinaryOption *> *optimal_config = vg.find_minimized_config(config, unwanted_options);
   std::string response;
   if (optimal_config) {

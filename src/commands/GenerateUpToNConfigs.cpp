@@ -19,7 +19,7 @@ std::string GenerateUpToNConfigs::execute(const std::string &args_string) {
   } catch (std::invalid_argument &ex) {
     return error("invalid number '" + args_string + "'");
   }
-  spl_conqueror::VariantGenerator &vg = _global_context.get_variant_generator();
+  spl_conqueror::VariantGenerator &vg = _global_context.get_solver_facade().get_variant_generator();
   std::vector<std::vector<spl_conqueror::BinaryOption *>> configs = vg.generate_up_to_n_configs(count);
   const option_coding::OptionCoding &coding = _global_context.get_option_coding();
   return coding.encode_binary_options_vector(configs);

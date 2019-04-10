@@ -54,7 +54,7 @@ std::string commands::GenerateConfigFromBucket::execute(const std::string &args_
   }
   spl_conqueror::BucketSession *bucket_session = _global_context.get_bucket_session();
   if (!bucket_session) {
-    spl_conqueror::VariantGenerator &vg = _global_context.get_variant_generator();
+    spl_conqueror::VariantGenerator &vg = _global_context.get_solver_facade().get_variant_generator();
     bucket_session = vg.create_bucket_session();
     _global_context.set_bucket_session(bucket_session);
   }

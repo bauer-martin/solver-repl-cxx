@@ -6,18 +6,14 @@ namespace utilities {
 
 GlobalContext::GlobalContext() : _option_coding(nullptr),
                                  _variability_model(nullptr),
-                                 _solver_factory(nullptr),
-                                 _sat_checker(nullptr),
-                                 _variant_generator(nullptr),
+                                 _solver_facade(nullptr),
                                  _bucket_session(nullptr) {
 }
 
 GlobalContext::~GlobalContext() {
   delete _option_coding;
   delete _variability_model;
-  delete _solver_factory;
-  delete _sat_checker;
-  delete _variant_generator;
+  delete _solver_facade;
   delete _bucket_session;
 }
 
@@ -50,35 +46,17 @@ void GlobalContext::set_variability_model(spl_conqueror::VariabilityModel *varia
   }
 }
 
-spl_conqueror::SolverFactory &GlobalContext::get_solver_factory() const {
-  if (_solver_factory) {
-    return *_solver_factory;
+spl_conqueror::SolverFacade &GlobalContext::get_solver_facade() const {
+  if (_solver_facade) {
+    return *_solver_facade;
   } else {
-    throw std::runtime_error("no solver factory has been set");
+    throw std::runtime_error("no solver facade has been set");
   }
 }
 
-void GlobalContext::set_solver_factory(spl_conqueror::SolverFactory *solver_factory) {
-  delete _solver_factory;
-  _solver_factory = solver_factory;
-  delete _sat_checker;
-  _sat_checker = nullptr;
-  delete _variant_generator;
-  _variant_generator = nullptr;
-}
-
-spl_conqueror::SatChecker &GlobalContext::get_sat_checker() {
-  if (!_sat_checker) {
-    _sat_checker = get_solver_factory().make_sat_checker();
-  }
-  return *_sat_checker;
-}
-
-spl_conqueror::VariantGenerator &GlobalContext::get_variant_generator() {
-  if (!_variant_generator) {
-    _variant_generator = get_solver_factory().make_variant_generator();
-  }
-  return *_variant_generator;
+void GlobalContext::set_solver_facade(spl_conqueror::SolverFacade *solver_facade) {
+  delete _solver_facade;
+  _solver_facade = solver_facade;
 }
 
 spl_conqueror::BucketSession *GlobalContext::get_bucket_session() const {

@@ -6,7 +6,7 @@ SelectSolver::SelectSolver(utilities::GlobalContext &global_context) : ShellComm
                                                                        _solver_types() {
 }
 
-void SelectSolver::register_solver(const std::string &solver_name, SolverFactoryInit init) {
+void SelectSolver::register_solver(const std::string &solver_name, SolverFacadeInit init) {
   _solver_types.emplace(solver_name, init);
 }
 
@@ -15,10 +15,10 @@ std::string SelectSolver::execute(const std::string &args_string) {
   if (search == _solver_types.end()) {
     return error("unknown solver '" + args_string + "'");
   }
-  SolverFactoryInit init = search->second;
+  SolverFacadeInit init = search->second;
   spl_conqueror::VariabilityModel &vm = _global_context.get_variability_model();
-  spl_conqueror::SolverFactory *factory = init(vm);
-  _global_context.set_solver_factory(factory);
+  spl_conqueror::SolverFacade *facade = init(vm);
+  _global_context.set_solver_facade(facade);
   return default_success_response();
 }
 

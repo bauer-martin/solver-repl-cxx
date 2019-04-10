@@ -2,7 +2,7 @@
 #include <boost/property_tree/xml_parser.hpp>
 #include <iostream>
 
-#include "or_tools/OrToolsSolverFactory.h"
+#include "or_tools/OrToolsSolverFacade.h"
 #include "spl_conqueror/VariabilityModel.h"
 #include "spl_conqueror/VariantGenerator.h"
 
@@ -10,9 +10,9 @@ int test_case(const std::string &feature_model, int expected_solution_count) {
   boost::property_tree::ptree tree;
   boost::property_tree::read_xml("feature-models/" + feature_model, tree);
   spl_conqueror::VariabilityModel *model = spl_conqueror::VariabilityModel::make_from_xml(tree);
-  or_tools::OrToolsSolverFactory solver_factory(*model);
-  spl_conqueror::VariantGenerator *vg = solver_factory.make_variant_generator();
-  const std::vector<std::vector<spl_conqueror::BinaryOption *>> &solutions = vg->generate_up_to_n_configs(-1);
+  or_tools::OrToolsSolverFacade solver_facade(*model);
+  spl_conqueror::VariantGenerator &vg = solver_facade.get_variant_generator();
+  const std::vector<std::vector<spl_conqueror::BinaryOption *>> &solutions = vg.generate_up_to_n_configs(-1);
   int actual_solution_count = solutions.size();
   if (actual_solution_count == expected_solution_count) {
     return EXIT_SUCCESS;

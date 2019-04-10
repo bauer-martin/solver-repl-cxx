@@ -4,7 +4,7 @@ target_sources(spl_conqueror_solvers_core
     OptiMathSatConstraintSystemContext.h OptiMathSatConstraintSystemContext.cpp
     OptiMathSatHelper.h OptiMathSatHelper.cpp
     OptiMathSatSatChecker.h OptiMathSatSatChecker.cpp
-    ${CMAKE_SOURCE_DIR}/include/opti_math_sat/OptiMathSatSolverFactory.h OptiMathSatSolverFactory.cpp
+    ${CMAKE_SOURCE_DIR}/include/opti_math_sat/OptiMathSatSolverFacade.h OptiMathSatSolverFacade.cpp
     OptiMathSatVariantGenerator.h OptiMathSatVariantGenerator.cpp
 )
 

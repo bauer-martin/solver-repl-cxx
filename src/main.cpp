@@ -17,10 +17,10 @@
 #include "option_coding/OptionNameOptionCoding.h"
 #include "option_coding/VariabilityModelIndexOptionCoding.h"
 #ifdef USE_OPTIMATHSAT
-#include "opti_math_sat/OptiMathSatSolverFactory.h"
+#include "opti_math_sat/OptiMathSatSolverFacade.h"
 #endif
 #ifdef USE_OR_TOOLS
-#include "or_tools/OrToolsSolverFactory.h"
+#include "or_tools/OrToolsSolverFacade.h"
 #endif
 #include "spl_conqueror/BinaryOption.h"
 #include "utilities/Shell.h"
@@ -34,15 +34,15 @@ static int run_shell(std::istream &input) {
 #ifdef USE_OPTIMATHSAT
   select_solver_command->register_solver(
       "optimathsat",
-      [](const spl_conqueror::VariabilityModel &vm) -> spl_conqueror::SolverFactory * {
-        return new opti_math_sat::OptiMathSatSolverFactory(vm);
+      [](const spl_conqueror::VariabilityModel &vm) -> spl_conqueror::SolverFacade * {
+        return new opti_math_sat::OptiMathSatSolverFacade(vm);
       });
 #endif
 #ifdef USE_OR_TOOLS
   select_solver_command->register_solver(
       "ortools",
-      [](const spl_conqueror::VariabilityModel &vm) -> spl_conqueror::SolverFactory * {
-        return new or_tools::OrToolsSolverFactory(vm);
+      [](const spl_conqueror::VariabilityModel &vm) -> spl_conqueror::SolverFacade * {
+        return new or_tools::OrToolsSolverFacade(vm);
       });
 #endif
   shell.register_command("select-solver", select_solver_command);

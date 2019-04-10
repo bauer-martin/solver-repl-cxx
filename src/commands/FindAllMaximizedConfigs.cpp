@@ -30,7 +30,7 @@ std::string commands::FindAllMaximizedConfigs::execute(const std::string &args_s
     getline(ss, options_string, ' ');
     unwanted_options = coding.decode_binary_options(options_string);
   }
-  spl_conqueror::VariantGenerator &vg = _global_context.get_variant_generator();
+  spl_conqueror::VariantGenerator &vg = _global_context.get_solver_facade().get_variant_generator();
   std::vector<std::vector<spl_conqueror::BinaryOption *>> optimal_configs
       = vg.find_all_maximized_configs(config, unwanted_options);
   return coding.encode_binary_options_vector(optimal_configs);

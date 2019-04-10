@@ -4,7 +4,7 @@ target_sources(spl_conqueror_solvers_core
     OrToolsConstraintSystemContext.h OrToolsConstraintSystemContext.cpp
     OrToolsHelper.h OrToolsHelper.cpp
     OrToolsSatChecker.h OrToolsSatChecker.cpp
-    ${CMAKE_SOURCE_DIR}/include/or_tools/OrToolsSolverFactory.h OrToolsSolverFactory.cpp
+    ${CMAKE_SOURCE_DIR}/include/or_tools/OrToolsSolverFacade.h OrToolsSolverFacade.cpp
     OrToolsVariantGenerator.h OrToolsVariantGenerator.cpp
     OrToolsSolutionCollector.h OrToolsSolutionCollector.cpp
 )
