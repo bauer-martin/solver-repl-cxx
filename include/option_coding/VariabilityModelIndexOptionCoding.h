@@ -3,11 +3,11 @@
 
 #include <map>
 
-#include "option_coding/OptionCoding.h"
+#include "option_coding/AbstractOptionCoding.h"
 
 namespace option_coding {
 
-class VariabilityModelIndexOptionCoding : public OptionCoding {
+class VariabilityModelIndexOptionCoding : public AbstractOptionCoding {
  private:
    std::map<std::string, std::string> _encoding_substitutions;
    std::map<std::string, std::string> _decoding_substitutions;
@@ -16,12 +16,7 @@ class VariabilityModelIndexOptionCoding : public OptionCoding {
   explicit VariabilityModelIndexOptionCoding(const spl_conqueror::VariabilityModel &vm);
   ~VariabilityModelIndexOptionCoding() override;
   spl_conqueror::BinaryOption *decode_binary_option(const std::string &str) const override;
-  std::vector<spl_conqueror::BinaryOption *> decode_binary_options(const std::string &str) const override;
   std::string encode_binary_options(const std::vector<spl_conqueror::BinaryOption *> &options) const override;
-  std::string encode_binary_options_vector(
-      const std::vector<std::vector<spl_conqueror::BinaryOption *>> &configs) const override;
-  std::string encode_binary_options_set(
-      const std::set<std::vector<spl_conqueror::BinaryOption *>> &configs) const override;
 
  public:
   VariabilityModelIndexOptionCoding(const VariabilityModelIndexOptionCoding &other) = delete;
