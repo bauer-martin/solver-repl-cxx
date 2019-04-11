@@ -15,6 +15,7 @@ class VariabilityModelIndexOptionCoding : public OptionCoding {
  public:
   explicit VariabilityModelIndexOptionCoding(const spl_conqueror::VariabilityModel &vm);
   ~VariabilityModelIndexOptionCoding() override;
+  spl_conqueror::BinaryOption *decode_binary_option(const std::string &str) const override;
   std::vector<spl_conqueror::BinaryOption *> decode_binary_options(const std::string &str) const override;
   std::string encode_binary_options(const std::vector<spl_conqueror::BinaryOption *> &options) const override;
   std::string encode_binary_options_vector(

@@ -29,7 +29,7 @@ std::string commands::GenerateConfigWithoutOption::execute(const std::string &ar
   std::string option_name;
   getline(ss, option_name);
   spl_conqueror::VariabilityModel &vm = _global_context.get_variability_model();
-  spl_conqueror::BinaryOption *option_to_remove = vm.get_binary_option(option_name);
+  spl_conqueror::BinaryOption *option_to_remove = coding.decode_binary_option(option_name);
 
   spl_conqueror::VariantGenerator &vg = _global_context.get_solver_facade().get_variant_generator();
   std::vector<spl_conqueror::BinaryOption *> removed_options;

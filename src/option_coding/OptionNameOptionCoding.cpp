@@ -9,12 +9,16 @@ OptionNameOptionCoding::OptionNameOptionCoding(const spl_conqueror::VariabilityM
 
 OptionNameOptionCoding::~OptionNameOptionCoding() = default;
 
+spl_conqueror::BinaryOption *OptionNameOptionCoding::decode_binary_option(const std::string &str) const {
+  return _vm.get_binary_option(str);
+}
+
 std::vector<spl_conqueror::BinaryOption *> OptionNameOptionCoding::decode_binary_options(const std::string &str) const {
   std::istringstream ss(str);
   std::string option_name;
   std::vector<spl_conqueror::BinaryOption *> options;
   while (std::getline(ss, option_name, ',')) {
-    options.push_back(_vm.get_binary_option(option_name));
+    options.push_back(decode_binary_option(option_name));
   }
   return options;
 }

@@ -28,12 +28,16 @@ VariabilityModelIndexOptionCoding::VariabilityModelIndexOptionCoding(const spl_c
 
 VariabilityModelIndexOptionCoding::~VariabilityModelIndexOptionCoding() = default;
 
+spl_conqueror::BinaryOption *VariabilityModelIndexOptionCoding::decode_binary_option(const std::string &str) const {
+  return _vm.get_binary_option(_decoding_substitutions.at(str));
+}
+
 std::vector<spl_conqueror::BinaryOption *> VariabilityModelIndexOptionCoding::decode_binary_options(const std::string &str) const {
   std::istringstream ss(str);
   std::string option_name;
   std::vector<spl_conqueror::BinaryOption *> options;
   while (std::getline(ss, option_name, ',')) {
-    options.push_back(_vm.get_binary_option(_decoding_substitutions.at(option_name)));
+    options.push_back(decode_binary_option(option_name));
   }
   return options;
 }

@@ -17,6 +17,7 @@ class OptionCoding {
 
  public:
   virtual ~OptionCoding();
+  virtual spl_conqueror::BinaryOption *decode_binary_option(const std::string &str) const = 0;
   virtual std::vector<spl_conqueror::BinaryOption *> decode_binary_options(const std::string &str) const = 0;
   virtual std::string encode_binary_options(const std::vector<spl_conqueror::BinaryOption *> &options) const = 0;
   virtual std::string encode_binary_options_vector(

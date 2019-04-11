@@ -9,6 +9,7 @@ class OptionNameOptionCoding : public OptionCoding {
  public:
   explicit OptionNameOptionCoding(const spl_conqueror::VariabilityModel &vm);
   ~OptionNameOptionCoding() override;
+  spl_conqueror::BinaryOption *decode_binary_option(const std::string &str) const override;
   std::vector<spl_conqueror::BinaryOption *> decode_binary_options(const std::string &str) const override;
   std::string encode_binary_options(const std::vector<spl_conqueror::BinaryOption *> &options) const override;
   std::string encode_binary_options_vector(
