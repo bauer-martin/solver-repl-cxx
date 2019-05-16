@@ -1,4 +1,4 @@
-target_sources(spl_conqueror_solvers_core
+target_sources(core
   PRIVATE
     ${CMAKE_SOURCE_DIR}/include/option_coding/AbstractOptionCoding.h AbstractOptionCoding.cpp
     ${CMAKE_SOURCE_DIR}/include/option_coding/OptionCoding.h OptionCoding.cpp

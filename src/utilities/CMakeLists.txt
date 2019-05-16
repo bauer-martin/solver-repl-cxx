@@ -1,4 +1,4 @@
-target_sources(spl_conqueror_solvers_core
+target_sources(core
   PRIVATE
     ${CMAKE_SOURCE_DIR}/include/utilities/GlobalContext.h GlobalContext.cpp
     ${CMAKE_SOURCE_DIR}/include/utilities/Helpers.h Helpers.cpp

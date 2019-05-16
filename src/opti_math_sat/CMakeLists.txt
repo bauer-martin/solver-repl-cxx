@@ -1,4 +1,4 @@
-target_sources(spl_conqueror_solvers_core
+target_sources(core
   PRIVATE
     OptiMathSatBucketSession.h OptiMathSatBucketSession.cpp
     OptiMathSatConstraintSystemContext.h OptiMathSatConstraintSystemContext.cpp
@@ -9,17 +9,17 @@ target_sources(spl_conqueror_solvers_core
 )
 
 find_package(OptiMathSat REQUIRED)
-target_include_directories(spl_conqueror_solvers_core
+target_include_directories(core
   PUBLIC
     ${OptiMathSat_INCLUDE_DIR}
 )
-target_link_libraries(spl_conqueror_solvers_core
+target_link_libraries(core
   PRIVATE
     ${OptiMathSat_LIBRARIES}
 )
 
 find_package(GMP REQUIRED)
-target_link_libraries(spl_conqueror_solvers_core
+target_link_libraries(core
   PRIVATE
     ${GMP_LIBRARIES}
 )

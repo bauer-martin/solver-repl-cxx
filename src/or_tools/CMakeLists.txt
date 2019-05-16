@@ -1,4 +1,4 @@
-target_sources(spl_conqueror_solvers_core
+target_sources(core
   PRIVATE
     OrToolsBucketSession.h OrToolsBucketSession.cpp
     OrToolsConstraintSystemContext.h OrToolsConstraintSystemContext.cpp
@@ -10,11 +10,11 @@ target_sources(spl_conqueror_solvers_core
 )
 
 find_package(ORTools REQUIRED)
-target_include_directories(spl_conqueror_solvers_core
+target_include_directories(core
   PUBLIC
     ${ORTools_INCLUDE_DIRS}
 )
-target_link_libraries(spl_conqueror_solvers_core
+target_link_libraries(core
   PRIVATE
     ${ORTools_LIBRARIES}
 )
