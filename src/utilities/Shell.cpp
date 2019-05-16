@@ -44,7 +44,7 @@ int Shell::execute() {
     } else if (command_string == "exit") {
       should_process_input = false;
     } else {
-      std::cerr << "unknown command: " << command_string << std::endl;
+      std::cerr << "terminating due to unknown command '" << command_string << "'" << std::endl;
       exit_code = EXIT_FAILURE;
       should_process_input = false;
     }
