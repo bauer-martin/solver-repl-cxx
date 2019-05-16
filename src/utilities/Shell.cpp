@@ -21,6 +21,7 @@ void Shell::register_command(const std::string &command_name, ShellCommand *comm
 int Shell::execute() {
   bool should_process_input = true;
   int exit_code = EXIT_SUCCESS;
+  std::string error_prefix = "error: ";
   do {
     std::string line;
     getline(_input, line);
@@ -40,7 +41,15 @@ int Shell::execute() {
     if (search != _commands.end()) {
       ShellCommand *command = search->second;
       std::string response = command->execute(args_string);
-      std::cout << response << std::endl;
+      auto mismatch = std::mismatch(error_prefix.begin(), error_prefix.end(), response.begin());
+      bool has_error_prefix = mismatch.first == error_prefix.end();
+      if (has_error_prefix)
+      {
+        std::cerr << response.substr(error_prefix.size()) << std::endl;
+        should_process_input = false;
+      } else {
+        std::cout << response << std::endl;
+      }
     } else if (command_string == "exit") {
       should_process_input = false;
     } else {
