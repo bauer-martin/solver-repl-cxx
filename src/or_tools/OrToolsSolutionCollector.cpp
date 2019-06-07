@@ -2,11 +2,11 @@
 
 namespace or_tools {
 
-OrToolsSolutionCollector::OrToolsSolutionCollector(const OrToolsConstraintSystemContext &context, uint seed)
+OrToolsSolutionCollector::OrToolsSolutionCollector(const OrToolsConstraintSystemContext &context, unsigned int seed)
     : OrToolsSolutionCollector(context, seed, -1) {
 }
 
-OrToolsSolutionCollector::OrToolsSolutionCollector(const OrToolsConstraintSystemContext &context, uint seed, int limit)
+OrToolsSolutionCollector::OrToolsSolutionCollector(const OrToolsConstraintSystemContext &context, unsigned int seed, int limit)
     : _context(context),
       _limit(limit),
       _solutions(),

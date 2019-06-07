@@ -27,7 +27,7 @@ OptiMathSatConstraintSystemContext::OptiMathSatConstraintSystemContext(
 }
 
 OptiMathSatConstraintSystemContext *OptiMathSatConstraintSystemContext::make_from(
-    const spl_conqueror::VariabilityModel &vm, uint seed) {
+    const spl_conqueror::VariabilityModel &vm, unsigned int seed) {
   msat_config config = msat_create_config();
   msat_set_option(config, "model_generation", "true");
   msat_set_option(config, "random_seed", std::to_string(seed).c_str());

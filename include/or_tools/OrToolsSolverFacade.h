@@ -11,7 +11,7 @@ class OrToolsSolverFacade final : public spl_conqueror::SolverFacade {
   const spl_conqueror::VariabilityModel &_vm;
   spl_conqueror::SatChecker *_sat_checker;
   spl_conqueror::VariantGenerator *_variant_generator;
-  uint _seed;
+  unsigned int _seed;
   void apply_parameters();
 
  public:

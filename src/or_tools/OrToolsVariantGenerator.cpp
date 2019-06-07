@@ -31,7 +31,7 @@ OrToolsVariantGenerator::OrToolsVariantGenerator(const spl_conqueror::Variabilit
     : _vm(vm), _seed(1) {
 }
 
-void OrToolsVariantGenerator::set_seed(uint seed) {
+void OrToolsVariantGenerator::set_seed(unsigned int seed) {
   _seed = seed;
 }
 
