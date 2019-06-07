@@ -18,3 +18,6 @@ target_link_libraries(core
   PRIVATE
     ${ORTools_LIBRARIES}
 )
+if(ORTools_COMPILER_FLAGS)
+  target_compile_options(core PRIVATE ${ORTools_COMPILER_FLAGS})
+endif()
