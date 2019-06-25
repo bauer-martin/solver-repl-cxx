@@ -21,7 +21,7 @@ std::string commands::GenerateAllVariants::execute(const std::string &args_strin
 
   spl_conqueror::VariantGenerator &vg = _global_context.get_solver_facade().get_variant_generator();
   std::set<std::vector<spl_conqueror::BinaryOption *>> all_variants = vg.generate_all_variants(options_to_consider);
-  return coding.encode_binary_options_set(all_variants);
+  return all_variants.empty() ? "none" : coding.encode_binary_options_set(all_variants);
 }
 
 }

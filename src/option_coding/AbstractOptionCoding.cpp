@@ -20,9 +20,6 @@ std::vector<spl_conqueror::BinaryOption *> AbstractOptionCoding::decode_binary_o
 }
 
 std::string AbstractOptionCoding::encode_binary_options_vector(const std::vector<std::vector<spl_conqueror::BinaryOption *>> &configs) const {
-  if (configs.empty()) {
-    return "none";
-  }
   std::stringstream ss;
   for (auto it = configs.cbegin(); it < configs.cend(); ++it) {
     std::vector<spl_conqueror::BinaryOption *> options = *it;
@@ -35,9 +32,6 @@ std::string AbstractOptionCoding::encode_binary_options_vector(const std::vector
 }
 
 std::string AbstractOptionCoding::encode_binary_options_set(const std::set<std::vector<spl_conqueror::BinaryOption *>> &configs) const {
-  if (configs.empty()) {
-    return "none";
-  }
   std::stringstream ss;
   for (auto &&options : configs) {
     ss << encode_binary_options(options);
