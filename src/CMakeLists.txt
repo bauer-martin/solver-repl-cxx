@@ -25,5 +25,5 @@ target_include_directories(core
     ${CMAKE_SOURCE_DIR}/include
 )
 
-add_executable(solver_repl_cxx main.cpp)
-target_link_libraries(solver_repl_cxx PRIVATE core)
+add_executable(solver-repl-cxx main.cpp)
+target_link_libraries(solver-repl-cxx PRIVATE core)
